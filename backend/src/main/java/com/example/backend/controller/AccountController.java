@@ -21,11 +21,15 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createAccount);
     }
 
-    @GetMapping("/{id}")
-    public Account getAccountByID(@PathVariable Long id) {
-        return service.getAccountDetailsByAccountNumber(id);
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<?> getAccountByID(@PathVariable Long accountNumber) {
+        try {
+            return ResponseEntity.ok(service.getAccountDetailsByAccountNumber(accountNumber));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Account mit der ID " + accountNumber + " nicht gefunden!");
+        }
     }
-
 
 
 }

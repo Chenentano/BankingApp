@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account getAccountDetailsByAccountNumber(Long accountNumber) {
         Optional<Account> account = repo.findById(accountNumber);
-        if(account.isEmpty()) {
+        if(account.isEmpty()){
             throw new RuntimeException("Account nicht gefunden!");
         }
         return account.get();
