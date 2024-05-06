@@ -1,15 +1,22 @@
 package com.example.backend.service;
 
 import com.example.backend.entity.Account;
+import com.example.backend.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService{
+
+    @Autowired
+    AccountRepository repo;
 
 
     @Override
     public Account createAccount(Account account) {
-        return null;
+        return repo.save(account);
     }
 
     @Override
