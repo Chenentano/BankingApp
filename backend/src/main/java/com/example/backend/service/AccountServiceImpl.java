@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("AccountServiceImpl")
 public class AccountServiceImpl implements AccountService{
@@ -21,7 +22,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account getAccountDetailsByAccountNumber(Long accountNumber) {
-        return null;
+        Optional<Account> account = repo.findById(accountNumber);
+        if(account.isEmpty()) {
+            throw new RuntimeException("Account nicht gefunden!");
+        }
+        return account.get();
     }
 
     @Override
