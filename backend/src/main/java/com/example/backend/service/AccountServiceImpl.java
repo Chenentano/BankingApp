@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("AccountServiceImpl")
 public class AccountServiceImpl implements AccountService{
 
     @Autowired

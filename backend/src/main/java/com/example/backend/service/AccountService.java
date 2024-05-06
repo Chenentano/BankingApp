@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("AccountService")
 public interface AccountService {
 
     public Account createAccount(Account account);

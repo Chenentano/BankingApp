@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/account")
 public class AccountController {
 
-    @Qualifier("accountService")
+    @Qualifier("AccountServiceImpl")
     @Autowired
     AccountService service;
 
