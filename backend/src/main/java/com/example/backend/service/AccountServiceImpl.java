@@ -21,6 +21,12 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    public Account loginAccount(Account account) {
+        return null;
+    }
+
+
+    @Override
     public Account getAccountDetailsByAccountNumber(Long accountNumber) {
         Optional<Account> account = repo.findById(accountNumber);
         if(account.isEmpty()){

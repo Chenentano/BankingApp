@@ -23,6 +23,11 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createAccount);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Account> login(@RequestBody Account account) {
+        return null;
+    }
+
     @GetMapping("/{accountNumber}")
     public ResponseEntity<?> getAccountByAccountNumber(@PathVariable Long accountNumber) {
         try {
