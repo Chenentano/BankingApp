@@ -38,18 +38,24 @@ public class AccountController {
         return service.getAllAccountDetails();
     }
 
-    @PutMapping("/deposit/{accountNumber}")
-    public Account depositAccount(Long accountNumber, Double amount) {
-        return null;
+    @PutMapping("/deposit/{accountNumber}/{amount}")
+    public Account depositAccount(@PathVariable Long accountNumber, @PathVariable Double amount) {
+        return service.depositMoney(accountNumber,amount);
+    }
+
+    @PutMapping("/withdraw/{accountNumber}/{amount}")
+    public Account withdrawMoney(@PathVariable Long accountNumber, @PathVariable Double amount) {
+        return service.withdrawMoney(accountNumber,amount);
     }
 
     @DeleteMapping("/delete/{accountNumber}")
-    public ResponseEntity<?> deleteAccount(@PathVariable Long accountNumber) {
+    public ResponseEntity<String> closeAccount(@PathVariable Long accountNumber) {
         if(service.closeAccount(accountNumber)) {
             return ResponseEntity.status(HttpStatus.OK).body("Account mit der ID: " + accountNumber + " erfolgreich gelöscht!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account mit der ID: " + accountNumber + " nicht gefunden.");
         }
     }
+
 
     }
