@@ -3,6 +3,8 @@ package com.example.backend.service;
 import com.example.backend.entity.Account;
 import com.example.backend.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService{
 
     @Autowired
-    AccountRepository repo;
+    private AccountRepository repo;
+
 
 
     @Override
@@ -21,9 +24,26 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account loginAccount(Account account) {
-        return null;
+    public Account loginAccount(Account account) throws Exception {
+        Optional<Account> userAccountOpt = repo.findByAccountName(account.getAccountName());
+
+        if (userAccountOpt.isPresent()) {
+
+            Account validatedAccount = userAccountOpt.get();
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+            if (encoder.matches(account.getPassword(), validatedAccount.getPassword())) {
+                return validatedAccount;
+            } else {
+                throw new RuntimeException("Falsches Passwort!");
+            }
+
+        } else {
+            throw new Exception("Account nicht gefunden!");
+        }
     }
+
 
 
     @Override

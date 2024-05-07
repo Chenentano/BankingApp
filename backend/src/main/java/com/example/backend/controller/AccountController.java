@@ -17,15 +17,16 @@ public class AccountController {
     @Autowired
     AccountService service;
 
-    @PostMapping("/create")
+    @PostMapping("/auth/create")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         Account createAccount = service.createAccount(account);
         return ResponseEntity.status(HttpStatus.CREATED).body(createAccount);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Account> login(@RequestBody Account account) {
-        return null;
+    @PostMapping("/auth/login")
+    public ResponseEntity<Account> loginAccount(@RequestBody Account account) throws Exception {
+        Account loginAccount = service.loginAccount(account);
+        return ResponseEntity.status(HttpStatus.OK).body(loginAccount);
     }
 
     @GetMapping("/{accountNumber}")
