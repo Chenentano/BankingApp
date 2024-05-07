@@ -16,7 +16,7 @@ const RegisterPage = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/api/bankAccount/create', account);
+            const response = await axios.post('/api/bankAccount/auth/create', account);
             if (response.status === 201) {
                 console.log("Account wurde erfolgreich erstellt!: ", response.data);
                 setAccount({ accountName:'', password:'',email: ""});

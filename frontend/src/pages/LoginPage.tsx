@@ -15,7 +15,7 @@ const LoginPage = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/api/bankAccount/auth', account);
+            const response = await axios.post('/api/bankAccount/auth/login', account);
             if (response.status === 200) {
                 console.log("Erfolgreich eingeloggt!: ", response.data);
                 setAccount({ accountName:'', password:''});
