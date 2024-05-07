@@ -31,21 +31,47 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public List<Account> getAllAccountDetails() {
-        return List.of();
+        return repo.findAll();
     }
 
     @Override
     public Account depositMoney(Long accountNumber, Double amount) {
-        return null;
+        Optional<Account> account = repo.findById(accountNumber);
+        if(account.isEmpty()){
+            throw new RuntimeException("Account nicht gefunden!");
+        }
+        Account depositAccount = account.get();
+        double totalBalance =  depositAccount.getBalance()+amount;
+        depositAccount.setBalance(totalBalance);
+        repo.save(depositAccount);
+
+        return depositAccount;
+
     }
 
     @Override
     public Account withdrawMoney(Long accountNumber, Double amount) {
-        return null;
+        Optional<Account> account = repo.findById(accountNumber);
+        if(account.isEmpty()){
+            throw new RuntimeException("Account nicht gefunden!");
+        } else if (account.get().getBalance() < amount) {
+            throw new RuntimeException("Die Summe zum abbuchen ist größer als das Guthaben!");
+        }
+        Account depositAccount = account.get();
+        double totalBalance =  depositAccount.getBalance()-amount;
+        depositAccount.setBalance(totalBalance);
+        repo.save(depositAccount);
+
+        return depositAccount;
+
     }
 
     @Override
-    public void closeAccount(Long accountNumber) {
-
+    public boolean closeAccount(Long accountNumber) {
+        if (repo.existsById(accountNumber)) {
+            repo.deleteById(accountNumber);
+            return true;
+        }
+        return false;
     }
 }

@@ -13,6 +13,6 @@ public interface AccountService {
     public List<Account> getAllAccountDetails();
     public Account depositMoney(Long accountNumber, Double amount);
     public Account withdrawMoney(Long accountNumber, Double amount);
-    public void closeAccount(Long accountNumber);
+    public boolean closeAccount(Long accountNumber);
 
 }
