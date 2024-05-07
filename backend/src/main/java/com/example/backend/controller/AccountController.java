@@ -56,6 +56,4 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account mit der ID: " + accountNumber + " nicht gefunden.");
         }
     }
-
-
-    }
+}
