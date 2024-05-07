@@ -18,8 +18,12 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="account_name")
+    @Column(name="account_name" , length=20 , nullable=false)
     private String accountName;
+    @Column(length = 50,nullable=false)
+    private String email;
+    @Column(length = 20,nullable=false)
+    private String password;
     private double balance;
 
 }
