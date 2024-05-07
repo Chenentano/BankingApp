@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -22,13 +24,18 @@ public class AccountController {
     }
 
     @GetMapping("/{accountNumber}")
-    public ResponseEntity<?> getAccountByID(@PathVariable Long accountNumber) {
+    public ResponseEntity<?> getAccountByAccountNumber(@PathVariable Long accountNumber) {
         try {
             return ResponseEntity.ok(service.getAccountDetailsByAccountNumber(accountNumber));
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Account mit der ID " + accountNumber + " nicht gefunden!");
         }
+    }
+
+    @GetMapping("/getAllAccounts")
+    public List<Account> getAllAccounts(){
+        return service.getAllAccountDetails();
     }
 
 
