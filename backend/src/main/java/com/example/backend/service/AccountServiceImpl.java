@@ -45,7 +45,11 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void closeAccount(Long accountNumber) {
-
+    public boolean closeAccount(Long accountNumber) {
+        if (repo.existsById(accountNumber)) {
+            repo.deleteById(accountNumber);
+            return true;
+        }
+        return false;
     }
 }
