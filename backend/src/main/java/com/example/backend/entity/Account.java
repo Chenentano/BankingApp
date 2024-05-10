@@ -22,7 +22,7 @@ public class Account {
     private String accountName;
     @Column(length = 50,nullable=false)
     private String email;
-    @Column(length = 20,nullable=false)
+    @Column(length = 65,nullable=false)
     private String password;
     private double balance;
 

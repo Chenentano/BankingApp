@@ -20,6 +20,8 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account createAccount(Account account) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        account.setPassword(encoder.encode(account.getPassword()));
         return repo.save(account);
     }
 
@@ -38,12 +40,10 @@ public class AccountServiceImpl implements AccountService{
             } else {
                 throw new RuntimeException("Falsches Passwort!");
             }
-
         } else {
             throw new Exception("Account nicht gefunden!");
         }
     }
-
 
 
     @Override
