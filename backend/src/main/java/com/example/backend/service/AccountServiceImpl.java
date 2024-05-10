@@ -20,6 +20,8 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account createAccount(Account account) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        account.setPassword(encoder.encode(account.getPassword()));
         return repo.save(account);
     }
 
@@ -38,12 +40,10 @@ public class AccountServiceImpl implements AccountService{
             } else {
                 throw new RuntimeException("Falsches Passwort!");
             }
-
         } else {
             throw new Exception("Account nicht gefunden!");
         }
     }
-
 
 
     @Override
@@ -99,5 +99,23 @@ public class AccountServiceImpl implements AccountService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Account transferMoney(Long senderAccountNumber, Long recieverAccountNumber, Double amount) {
+        Account sender = repo.findById(senderAccountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + senderAccountNumber));
+        Account recipient = repo.findById(recieverAccountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + recieverAccountNumber));
+        if (sender.getBalance() < amount) {
+            throw new IllegalArgumentException("Sender hat nicht genug Geld!");
+        }
+        sender.setBalance(sender.getBalance() - amount);
+        recipient.setBalance(recipient.getBalance() + amount);
+
+        repo.save(sender);
+        repo.save(recipient);
+
+        return sender;
     }
 }
