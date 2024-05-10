@@ -100,4 +100,22 @@ public class AccountServiceImpl implements AccountService{
         }
         return false;
     }
+
+    @Override
+    public Account transferMoney(Long senderAccountNumber, Long recieverAccountNumber, Double amount) {
+        Account sender = repo.findById(senderAccountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + senderAccountNumber));
+        Account recipient = repo.findById(recieverAccountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + recieverAccountNumber));
+        if (sender.getBalance() < amount) {
+            throw new IllegalArgumentException("Sender hat nicht genug Geld!");
+        }
+        sender.setBalance(sender.getBalance() - amount);
+        recipient.setBalance(recipient.getBalance() + amount);
+
+        repo.save(sender);
+        repo.save(recipient);
+
+        return sender;
+    }
 }

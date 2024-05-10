@@ -62,4 +62,10 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account mit der ID: " + accountNumber + " nicht gefunden.");
         }
     }
+
+    @PutMapping("/transfer/{senderAccountNumber}/{recieverAccountNumber}/{amount}")
+    public Account transferMoney(@PathVariable Long senderAccountNumber, @PathVariable Long recieverAccountNumber , @PathVariable Double amount) {
+        return service.transferMoney(senderAccountNumber,recieverAccountNumber,amount);
+    }
+
 }
