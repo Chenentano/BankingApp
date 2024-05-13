@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const inputClasses = "mt-1 block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
 const labelClasses = "block text-sm font-medium text-zinc-700";
@@ -58,6 +59,11 @@ const RegisterPage = () => {
                                onChange={handleInputChange}/>
                     </div>
                     <button type="submit" className={buttonClasses}>Register</button>
+                    <div>
+                        <p className="mt-2">
+                            Sie sind schon Kunde? <Link to="/login" className="text-blue-500">Hier können Sie sich anmelden!</Link>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

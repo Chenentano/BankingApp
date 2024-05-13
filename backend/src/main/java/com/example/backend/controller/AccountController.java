@@ -15,7 +15,7 @@ public class AccountController {
 
     @Qualifier("AccountServiceImpl")
     @Autowired
-    AccountService service;
+    private AccountService service;
 
     @PostMapping("/auth/create")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
@@ -24,9 +24,13 @@ public class AccountController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<Account> loginAccount(@RequestBody Account account) throws Exception {
-        Account loginAccount = service.loginAccount(account);
-        return ResponseEntity.status(HttpStatus.OK).body(loginAccount);
+    public ResponseEntity<Account> loginAccount(@RequestBody Account account) {
+        try {
+            Account loginAccount = service.loginAccount(account);
+            return ResponseEntity.ok(loginAccount);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/{accountNumber}")
