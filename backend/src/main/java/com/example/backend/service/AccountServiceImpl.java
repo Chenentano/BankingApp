@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService{
         return repo.save(account);
     }
 
-    @Override
+
     public Account loginAccount(Account account) throws Exception {
         Optional<Account> userAccountOpt = repo.findByAccountName(account.getAccountName());
 
