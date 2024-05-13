@@ -6,7 +6,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col overflow-hidden">
             <header className="py-4 px-8 flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Your Bank</h1>
+                <h1 className="text-2xl font-bold">Basti Bank</h1>
                 <Link to="/login" className="bg-blue-500 text-white px-4 py-2 rounded-md">Login</Link>
             </header>
             <main className="flex-1 overflow-y-auto">
