@@ -15,13 +15,16 @@ public class WebSecurityConfiguration {
     @Bean
     SecurityFilterChain customSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("/api/bankAccount/**").permitAll();
-                auth.anyRequest().authenticated();
-        })
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-        .build();
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/api/bankAccount/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
 }
