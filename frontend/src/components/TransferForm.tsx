@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
 const TransferForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ const TransferForm: React.FC = () => {
     };
 
     return (
+        <ProtectedRoute>
         <div className="max-w-lg mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">Money Transfer</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -80,6 +82,7 @@ const TransferForm: React.FC = () => {
                 </button>
             </form>
         </div>
+        </ProtectedRoute>
     );
 };
 

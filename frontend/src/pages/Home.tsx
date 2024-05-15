@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute.tsx";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Home = () => {
 
     return (
         <>
+            <ProtectedRoute>
             <h1>Willkommen User!</h1>
             <ul>
                 <li><Link to="/home" className="text-blue-500">Home</Link></li>
@@ -20,6 +22,7 @@ const Home = () => {
                 <li>Platzhalter</li>
             </ul>
             <button onClick={handleLogout}>Logout</button>
+            </ProtectedRoute>
     </>
             );
 };
