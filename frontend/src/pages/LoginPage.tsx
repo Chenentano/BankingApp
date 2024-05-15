@@ -1,21 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import axios from 'axios';
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const inputClasses = "mt-1 block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
 const labelClasses = "block text-sm font-medium text-zinc-700";
 const buttonClasses = "w-full bg-blue-500 text-white p-2 rounded-lg";
 
 const LoginPage = () => {
-    const [account, setAccount] = useState({accountName: "", password: ""});
+    const [account, setAccount] = useState({ accountName: "", password: "" });
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        if (isLoggedIn) {
-            navigate('/home');
-        }
-    }, [navigate]);
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,12 +17,14 @@ const LoginPage = () => {
             if (response.status === 200) {
                 console.log("Erfolgreich eingeloggt!: ", response.data);
                 localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', response.data.accountName);
+                localStorage.setItem('balance', response.data.balance);
                 navigate("/home");
-                setAccount({accountName: '', password: ''});
+                setAccount({ accountName: '', password: '' });
             }
         } catch (err) {
             console.error("Falscher Benutzer oder PW!", err);
-            setAccount({accountName: '', password: ''});
+            setAccount({ accountName: '', password: '' });
         }
     }
 
@@ -44,19 +39,19 @@ const LoginPage = () => {
         <div className="min-h-screen flex items-center justify-center bg-white">
             <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold text-zinc-800 mb-4">BASTI'S UNFASSBARE BANK!1!11 JETZT EINLOGGEN
-                    JAJAJAJAJAJAJAJAJAJ</h2><br/>
+                    JAJAJAJAJAJAJAJAJAJ</h2><br />
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label htmlFor="username" className={labelClasses}>Username</label>
                         <input type="text" id="accountName" name="accountName" className={inputClasses}
                                placeholder="Enter your username" value={account.accountName || ''}
-                               onChange={handleInputChange}/>
+                               onChange={handleInputChange} />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="password" className={labelClasses}>Password</label>
                         <input type="password" id="password" name="password" className={inputClasses}
                                placeholder="Enter your password" value={account.password || ''}
-                               onChange={handleInputChange}/>
+                               onChange={handleInputChange} />
                     </div>
                     <button type="submit" className={buttonClasses}>Login</button>
                     <div>

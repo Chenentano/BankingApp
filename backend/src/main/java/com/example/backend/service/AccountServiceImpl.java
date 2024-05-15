@@ -56,6 +56,16 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    public Account getAccountByName(String accountName) {
+        Optional<Account> account = repo.findByAccountName(accountName);
+        if(account.isPresent()){
+            return account.get();
+        } else {
+            throw new RuntimeException("Account not found!");
+        }
+    }
+
+    @Override
     public List<Account> getAllAccountDetails() {
         return repo.findAll();
     }

@@ -11,6 +11,7 @@ public interface AccountService {
     Account createAccount(Account account);
     Account loginAccount(Account account) throws Exception;
     Account getAccountDetailsByAccountNumber(Long accountNumber);
+    Account getAccountByName(String accountNumber);
     List<Account> getAllAccountDetails();
     Account depositMoney(Long accountNumber, Double amount);
     Account withdrawMoney(Long accountNumber, Double amount);
