@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import ProtectedRoute from "./ProtectedRoute.tsx";
+import ProtectedRoute from "../components/ProtectedRoute.tsx";
 
 const TransferForm: React.FC = () => {
     const [formData, setFormData] = useState({

@@ -6,7 +6,7 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import Home from "./pages/Home.tsx";
 import WelcomePage from "./pages/WelcomePage.tsx";
 import NotAuthorised from "./pages/Not-Authorised.tsx";
-import TransferForm from "./components/TransferForm.tsx";
+import TransferForm from "./pages/TransferForm.tsx";
 
 function App() {
 
