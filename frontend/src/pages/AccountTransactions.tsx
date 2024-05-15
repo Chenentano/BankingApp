@@ -10,7 +10,7 @@ const transactions = [
 
 const balance = 3500.0;
 
-const UmsatzPage = () => {
+const AccountTransactionPage = () => {
 
     return (
 <ProtectedRoute>
@@ -46,4 +46,4 @@ const UmsatzPage = () => {
     );
 };
 
-export default UmsatzPage;
+export default AccountTransactionPage;

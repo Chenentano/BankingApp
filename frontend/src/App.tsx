@@ -8,6 +8,7 @@ import WelcomePage from "./pages/WelcomePage.tsx";
 import NotAuthorised from "./pages/Not-Authorised.tsx";
 import TransferForm from "./pages/TransferForm.tsx";
 import AccountTransactions from "./pages/AccountTransactions.tsx";
+import PayAtDate from "./pages/PayAtDate.tsx";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/transfer-form" element={<TransferForm />} />
           <Route path="/account-transactions" element={<AccountTransactions />} />
+          <Route path="/pay-at-date" element={<PayAtDate />} />
       </Routes>
   </>
           )
