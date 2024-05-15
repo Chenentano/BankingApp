@@ -15,15 +15,25 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
             console.log("User not logged in. Redirecting to /401-not-authorised");
             navigate("/401-not-authorised");
         } else {
-            setIsLoading(false);
+            const timeout = setTimeout(() => {
+                setIsLoading(false);
+            }, 1000);
+            return () => clearTimeout(timeout);
         }
     }, [navigate]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    return <>{children}</>;
+    return (
+        <>
+            {isLoading ? (
+                <div className="loading-container">
+                    <div className="spinner"></div>
+                    <p className="loading-text">Einen Moment bitte</p>
+                </div>
+            ) : (
+                <>{children}</>
+            )}
+        </>
+    );
 };
 
 export default ProtectedRoute;

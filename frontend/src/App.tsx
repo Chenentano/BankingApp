@@ -7,6 +7,7 @@ import Home from "./pages/Home.tsx";
 import WelcomePage from "./pages/WelcomePage.tsx";
 import NotAuthorised from "./pages/Not-Authorised.tsx";
 import TransferForm from "./pages/TransferForm.tsx";
+import AccountTransactions from "./pages/AccountTransactions.tsx";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/401-not-authorised" element={<NotAuthorised />} />
           <Route path="/home" element={<Home />} />
           <Route path="/transfer-form" element={<TransferForm />} />
+          <Route path="/account-transactions" element={<AccountTransactions />} />
       </Routes>
   </>
           )

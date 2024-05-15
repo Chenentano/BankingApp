@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import ProtectedRoute from "../components/ProtectedRoute.tsx";
+import NavBar from "../components/NavBar.tsx";
 
 const TransferForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -19,12 +20,12 @@ const TransferForm: React.FC = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Handle form submission
         console.log('Form data submitted:', formData);
     };
 
     return (
         <ProtectedRoute>
+            <NavBar/>
         <div className="max-w-lg mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">Money Transfer</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
