@@ -6,23 +6,26 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import Home from "./pages/Home.tsx";
 import WelcomePage from "./pages/WelcomePage.tsx";
 import NotAuthorised from "./pages/Not-Authorised.tsx";
-import TransferForm from "./components/TransferForm.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import TransferForm from "./pages/TransferForm.tsx";
+import AccountTransactions from "./pages/AccountTransactions.tsx";
+import PayAtDate from "./pages/PayAtDate.tsx";
 
 function App() {
 
   return (
+      <>
       <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/401-not-authorised" element={<NotAuthorised />} />
-          <ProtectedRoute>
-              <Route path="/home" element={<Home />} />
-              <Route path="/transfer-form" element={<TransferForm />} />
-          </ProtectedRoute>
+          <Route path="/home" element={<Home />} />
+          <Route path="/transfer-form" element={<TransferForm />} />
+          <Route path="/account-transactions" element={<AccountTransactions />} />
+          <Route path="/pay-at-date" element={<PayAtDate />} />
       </Routes>
-  )
+  </>
+          )
 }
 
 export default App

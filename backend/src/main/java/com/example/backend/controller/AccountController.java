@@ -33,13 +33,23 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/{accountNumber}")
+    @GetMapping("/getById/{accountNumber}")
     public ResponseEntity<?> getAccountByAccountNumber(@PathVariable Long accountNumber) {
         try {
             return ResponseEntity.ok(service.getAccountDetailsByAccountNumber(accountNumber));
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Account mit der ID " + accountNumber + " nicht gefunden!");
+        }
+    }
+
+    @GetMapping("/getByName/{accountName}")
+    public ResponseEntity<?> getAccountByAccountName(@PathVariable String accountName) {
+        try {
+            return ResponseEntity.ok(service.getAccountByName(accountName));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Account mit dem Namen " + accountName + " nicht gefunden!");
         }
     }
 
