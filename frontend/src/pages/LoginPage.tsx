@@ -29,6 +29,7 @@ const LoginPage = () => {
             }
         } catch (err) {
             console.error("Falscher Benutzer oder PW!", err);
+            setAccount({accountName: '', password: ''});
         }
     }
 

@@ -13,15 +13,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfiguration {
 
     @Bean
-    SecurityFilterChain customSecurityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("/api/bankAccount/**").permitAll();
-                auth.anyRequest().authenticated();
-        })
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
                 .csrf(AbstractHttpConfigurer::disable)
-        .build();
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/bankAccount/auth/login").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
+
+        return http.build();
     }
 }
