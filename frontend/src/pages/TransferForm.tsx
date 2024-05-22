@@ -20,7 +20,7 @@ const TransferForm: React.FC = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
+        console.log('Form data klappt:', formData);
     };
 
     return (
@@ -30,7 +30,7 @@ const TransferForm: React.FC = () => {
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">Überweisung</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Sender</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Sender-Nummer</label>
                     <input
                         type="text"
                         name="sender"
@@ -42,7 +42,7 @@ const TransferForm: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Empfänger</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Empfänger-Nummer</label>
                     <input
                         type="text"
                         name="recipient"
