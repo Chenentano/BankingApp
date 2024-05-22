@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +23,11 @@ public class AccountServiceImpl implements AccountService{
     public Account createAccount(Account account) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         account.setPassword(encoder.encode(account.getPassword()));
+        if (account.getBankAccountNumber() == null || account.getBankAccountNumber().isEmpty()) {
+            account.setBankAccountNumber(generateBankAccountNumber());
+        }
         return repo.save(account);
     }
-
 
     public Account loginAccount(Account account) throws Exception {
         Optional<Account> userAccountOpt = repo.findByAccountName(account.getAccountName());
@@ -128,4 +131,28 @@ public class AccountServiceImpl implements AccountService{
 
         return sender;
     }
+
+    private String generateBankAccountNumber() {
+        return new SecureRandom()
+                .ints(0,9)
+                .limit(10)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+
+    public void updateExistingAccounts() {
+        List<Account> accounts = repo.findAll();
+
+        for (Account account : accounts) {
+            if (account.getBankAccountNumber() == null || account.getBankAccountNumber().isEmpty()) {
+                account.setBankAccountNumber(generateBankAccountNumber());
+                repo.save(account);
+            }
+        }
+    }
+
 }
+
+
+
+

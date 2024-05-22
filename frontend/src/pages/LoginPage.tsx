@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
+import backgroundImage from '../assets/Auth_Background.png';
 
-const inputClasses = "mt-1 block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
-const labelClasses = "block text-sm font-medium text-zinc-700";
-const buttonClasses = "w-full bg-blue-500 text-white p-2 rounded-lg";
 
 const LoginPage = () => {
     const [account, setAccount] = useState({ accountName: "", password: "" });
@@ -20,6 +18,7 @@ const LoginPage = () => {
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('username', response.data.accountName);
                 localStorage.setItem('balance', response.data.balance);
+                localStorage.setItem('bankAccountNumber', response.data.bankAccountNumber);
                 navigate("/home");
                 setAccount({ accountName: '', password: '' });
             }
@@ -49,7 +48,12 @@ const LoginPage = () => {
         });
     }
 
-return (
+        const labelClasses = "block text-sm font-medium text-gray-700 mb-1";
+        const inputClasses = "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+        const buttonClasses = "w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
+
+
+        return (
     <>
         {isLoading ? (
             <div className="loading-container">
@@ -58,39 +62,39 @@ return (
             </div>
         ) : (
             <>
-            <div className="min-h-screen flex items-center justify-center bg-white">
-                <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
-                    <h2 className="text-2xl font-bold text-zinc-800 mb-4">BASTI'S UNFASSBARE BANK!1!11 JETZT EINLOGGEN
-                        JAJAJAJAJAJAJAJAJAJ</h2><br/>
-                    <form onSubmit={handleLogin}>
-                        <div className="mb-4">
-                            <label htmlFor="username" className={labelClasses}>Username</label>
-                            <input type="text" id="accountName" name="accountName" className={inputClasses}
-                                   placeholder="Enter your username" value={account.accountName || ''}
-                                   onChange={handleInputChange}/>
-                        </div>
-                        <div className="mb-6">
-                            <label htmlFor="password" className={labelClasses}>Password</label>
-                            <input type="password" id="password" name="password" className={inputClasses}
-                                   placeholder="Enter your password" value={account.password || ''}
-                                   onChange={handleInputChange}/>
-                        </div>
-                        <button type="submit" className={buttonClasses}>Login</button>
-                        <div>
-                            <p className="mt-2">
-                                Noch kein Kunde? <Link to="/register" className="text-blue-500">Hier ein kostenloses
-                                Konto
-                                erstellen!</Link>
-                            </p>
-                        </div>
-                    </form>
+                <div className="min-h-screen flex items-center justify-center bg-cover bg-center"
+                     style={{backgroundImage: `url(${backgroundImage})`}}>
+                    <div className="max-w-md w-full p-8 bg-white bg-opacity-90 shadow-lg rounded-lg">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Basti's Bank Login</h2>
+                        <form onSubmit={handleLogin}>
+                            <div className="mb-4">
+                                <label htmlFor="accountName" className={labelClasses}>Username</label>
+                                <input type="text" id="accountName" name="accountName" className={inputClasses}
+                                       placeholder="Enter your username" value={account.accountName || ''}
+                                       onChange={handleInputChange}/>
+                            </div>
+                            <div className="mb-6">
+                                <label htmlFor="password" className={labelClasses}>Password</label>
+                                <input type="password" id="password" name="password" className={inputClasses}
+                                       placeholder="Enter your password" value={account.password || ''}
+                                       onChange={handleInputChange}/>
+                            </div>
+                            <button type="submit" className={buttonClasses}>Login</button>
+                            <div className="mt-4 text-center">
+                                <p className="text-sm text-gray-600">
+                                    Noch kein Kunde? <Link to="/register"
+                                                           className="text-indigo-600 hover:text-indigo-500">Hier ein
+                                    kostenloses Konto erstellen!</Link>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-                </>
+            </>
         )}
     </>
-);
-}
+        );
+    }
 ;
 
 export default LoginPage;

@@ -17,5 +17,6 @@ public interface AccountService {
     Account withdrawMoney(Long accountNumber, Double amount);
     boolean closeAccount(Long accountNumber);
     Account transferMoney(Long senderAccountNumber, Long recieverAccountNumber, Double amount);
+    public void updateExistingAccounts();
 
 }

@@ -1,17 +1,14 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import {Link} from "react-router-dom";
-
-const inputClasses = "mt-1 block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
-const labelClasses = "block text-sm font-medium text-zinc-700";
-const buttonClasses = "w-full bg-blue-500 text-white p-2 rounded-lg";
-
+import {Link, useNavigate} from "react-router-dom";
+import backgroundImage from '../assets/Auth_Background.png';
 
 const RegisterPage = () => {
 
 
     const[account, setAccount]
         = useState({accountName:"",password:"",email:""})
+    const navigate = useNavigate();
 
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -19,8 +16,13 @@ const RegisterPage = () => {
         try {
             const response = await axios.post('/api/bankAccount/auth/create', account);
             if (response.status === 201) {
-                console.log("Account wurde erfolgreich erstellt!: ", response.data);
-                setAccount({ accountName:'', password:'',email: ""});
+                console.log("Erfolgreich eingeloggt!: ", response.data);
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', response.data.accountName);
+                localStorage.setItem('balance', response.data.balance);
+                localStorage.setItem('bankAccountNumber', response.data.bankAccountNumber);
+                navigate("/home");
+                setAccount({ accountName: '', password: '' , email: ''});
             }
         } catch (err) {
             console.error("Account konnte nicht erstellt werden!", err);
@@ -34,34 +36,37 @@ const RegisterPage = () => {
         });
     }
 
+    const labelClasses = "block text-sm font-medium text-gray-700 mb-1";
+    const inputClasses = "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+    const buttonClasses = "w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
-                <h2 className="text-2xl font-bold text-zinc-800 mb-4">BASTI'S UNFASSBARE BANK!1!11</h2>
+        <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+            <div className="max-w-md w-full p-8 bg-white bg-opacity-90 shadow-lg rounded-lg">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Basti's Bank Register</h2>
                 <form onSubmit={handleRegister}>
-                    <div className="mb-4">
-                        <label htmlFor="username" className={labelClasses}>Username</label>
+                    <div className="mb-5">
+                        <label htmlFor="accountName" className={labelClasses}>Username</label>
                         <input type="text" id="accountName" name="accountName" className={inputClasses}
-                               placeholder="Enter your username" value={account.accountName || ''}
-                               onChange={handleInputChange}/>
+                               placeholder="Enter your username" value={account.accountName}
+                               onChange={handleInputChange} />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-5">
                         <label htmlFor="email" className={labelClasses}>E-Mail</label>
                         <input type="email" id="email" name="email" className={inputClasses}
-                               placeholder="Example@gmail.com" value={account.email || ''}
-                               onChange={handleInputChange}/>
+                               placeholder="example@gmail.com" value={account.email}
+                               onChange={handleInputChange} />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="password" className={labelClasses}>Password</label>
                         <input type="password" id="password" name="password" className={inputClasses}
-                               placeholder="Enter your password" value={account.password || ''}
-                               onChange={handleInputChange}/>
+                               placeholder="Enter your password" value={account.password}
+                               onChange={handleInputChange} />
                     </div>
                     <button type="submit" className={buttonClasses}>Register</button>
-                    <div>
-                        <p className="mt-2">
-                            Sie sind schon Kunde? <Link to="/login" className="text-blue-500">Hier können Sie sich anmelden!</Link>
+                    <div className="mt-4 text-center">
+                        <p className="text-sm text-gray-600">
+                            Sie haben schon einen Account? <Link to="/login" className="text-indigo-600 hover:text-indigo-500">Sign in</Link>
                         </p>
                     </div>
                 </form>
