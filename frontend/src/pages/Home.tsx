@@ -7,7 +7,7 @@ const Home = () => {
     const username = localStorage.getItem('username') || '';
     const balance = localStorage.getItem('balance') || '';
 
-    const accountNumber = "";
+    const accountNumber = "Fang endlich damit an du Script-Kiddy";
 
     return (
         <ProtectedRoute>
