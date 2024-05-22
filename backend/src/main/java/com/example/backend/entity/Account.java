@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
+
+import java.security.SecureRandom;
 
 @Getter
 @Setter
@@ -25,6 +28,8 @@ public class Account {
     @Pattern(regexp = "\\S+\\b", message = "Spaces are not allowed in the account name")
     private String accountName;
 
+    private String bankAccountNumber;
+
     @Column(length = 50,nullable=false)
     @NotNull
     @Email
@@ -34,5 +39,6 @@ public class Account {
     private String password;
 
     private double balance;
+
 
 }

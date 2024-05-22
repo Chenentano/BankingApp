@@ -33,6 +33,12 @@ public class AccountController {
         }
     }
 
+    @PostMapping("/createBankAccountNumbers")
+    public ResponseEntity<Void> updateBankAccountNumbers() {
+        service.updateExistingAccounts();
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/getById/{accountNumber}")
     public ResponseEntity<?> getAccountByAccountNumber(@PathVariable Long accountNumber) {
         try {
