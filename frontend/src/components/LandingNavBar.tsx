@@ -13,6 +13,7 @@ function LandingNavBar(){
     return (
         <>
         <header className="py-0.1 px-2 flex justify-between items-center bg-white shadow-md sticky top-0 z-40">
+            <Link to="#home" className="cursor-pointer" onClick={() => scrollToSection('home')}>
             <motion.div
                 className="flex items-center"
                 initial={{opacity: 0, y: -20}}
@@ -36,6 +37,7 @@ function LandingNavBar(){
                     Basti Bank
                 </motion.h1>
             </motion.div>
+            </Link>
             <div className="flex items-center space-x-6">
                 <Link to="#home" className="text-gray-700 font-bold hover:text-indigo-600" onClick={() => scrollToSection('home')}>
                     Home
