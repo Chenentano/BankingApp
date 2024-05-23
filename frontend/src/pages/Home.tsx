@@ -5,7 +5,8 @@ import NavBar from "../components/NavBar.tsx";
 
 const Home = () => {
     const username: string = localStorage.getItem('username') || 'Benutzer';
-    const balance: string = localStorage.getItem('balance') || '0';
+    const balance: string = localStorage.getItem('balance') || 'Nicht vorhanden!';
+
     const bankAccountNumber: string = localStorage.getItem('bankAccountNumber') || 'Nicht verfügbar';
     const recentTransactionsString = localStorage.getItem('recentTransactions');
     const recentTransactions: Transaction[] = recentTransactionsString ? JSON.parse(recentTransactionsString) : [];
