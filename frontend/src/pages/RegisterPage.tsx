@@ -99,12 +99,18 @@ const RegisterPage = () => {
                     </motion.button>
                     <motion.div
                         className="mt-4 text-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.8 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 1.8}}
                     >
                         <p className="text-sm text-gray-600">
-                            Sie haben schon einen Account? <Link to="/login" className="text-indigo-600 hover:text-indigo-500">Sign in</Link>
+                            Sie haben schon einen Account? <Link to="/login"
+                                                                 className="text-indigo-600 hover:text-indigo-500">Sign
+                            in</Link>
+                        </p>
+                        <p className="text-md text-gray-600">
+                            <Link to="/"
+                                  className="text-indigo-600 hover:text-indigo-500">Zurück zur Startseite</Link>
                         </p>
                     </motion.div>
                 </form>
