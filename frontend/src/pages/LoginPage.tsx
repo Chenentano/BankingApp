@@ -61,64 +61,77 @@ const LoginPage = () => {
                     <p className="loading-text">Einen Moment bitte</p>
                 </div>
             ) : (
-                <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+                <div className="min-h-screen flex items-center justify-center bg-cover bg-center"
+                     style={{backgroundImage: `url(${backgroundImage})`}}>
                     <motion.div
                         className="max-w-md w-full p-8 bg-white bg-opacity-90 shadow-lg rounded-lg"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{opacity: 0, scale: 0.8}}
+                        animate={{opacity: 1, scale: 1}}
+                        transition={{duration: 0.5}}
                     >
                         <motion.h2
                             className="text-3xl font-bold text-gray-900 mb-6 text-center"
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
+                            initial={{opacity: 0, y: -20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{delay: 0.3}}
                         >
                             Basti's Bank Login
                         </motion.h2>
                         <form onSubmit={handleLogin}>
                             <motion.div
                                 className="mb-4"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6 }}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{delay: 0.6}}
                             >
                                 <label htmlFor="accountName" className={labelClasses}>Username</label>
                                 <input type="text" id="accountName" name="accountName" className={inputClasses}
                                        placeholder="Enter your username" value={account.accountName || ''}
-                                       onChange={handleInputChange} />
+                                       onChange={handleInputChange}/>
                             </motion.div>
                             <motion.div
                                 className="mb-6"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.9 }}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{delay: 0.9}}
                             >
                                 <label htmlFor="password" className={labelClasses}>Password</label>
                                 <input type="password" id="password" name="password" className={inputClasses}
                                        placeholder="Enter your password" value={account.password || ''}
-                                       onChange={handleInputChange} />
+                                       onChange={handleInputChange}/>
                             </motion.div>
                             <motion.button
                                 type="submit"
                                 className={buttonClasses}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.2 }}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{delay: 1.2}}
                             >
                                 Login
                             </motion.button>
                             <motion.div
                                 className="mt-4 text-center"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5 }}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{delay: 1.5}}
                             >
                                 <p className="text-sm text-gray-600">
-                                    Noch kein Kunde? <Link to="/register" className="text-indigo-600 hover:text-indigo-500">Hier ein kostenloses Konto erstellen!</Link>
+                                    Noch kein Kunde? <Link to="/register"
+                                                           className="text-indigo-600 hover:text-indigo-500">Hier ein
+                                    kostenloses Konto erstellen!</Link>
                                 </p>
                             </motion.div>
                         </form>
+                    </motion.div>
+                    <motion.div
+                        className="mt-4 text-center"
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 1.5}}
+                    >
+                        <p className="text-sm text-gray-600">
+                             <Link to="/" className="text-indigo-600 hover:text-indigo-500">Zurück zur Startseite</Link>
+                        </p>
                     </motion.div>
                 </div>
             )}
