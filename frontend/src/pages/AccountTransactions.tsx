@@ -1,14 +1,14 @@
 import ProtectedRoute from "../components/ProtectedRoute.tsx";
 import NavBar from "../components/NavBar.tsx";
 
+const balance: string = localStorage.getItem('balance') || '0';
+
 const transactions = [
     { id: 1, date: '2024-05-15', description: 'Einkauf bei Supermarkt', amount: -25.99 },
     { id: 2, date: '2024-05-14', description: 'Gehaltseingang', amount: 2500.0 },
     { id: 3, date: '2024-05-12', description: 'Restaurantbesuch', amount: -40.0 },
     { id: 4, date: '2024-05-10', description: 'Online-Bestellung', amount: -55.0 },
 ];
-
-const balance = 3500.0;
 
 const AccountTransactionPage = () => {
 
@@ -39,7 +39,7 @@ const AccountTransactionPage = () => {
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
                 <h2 className="text-xl font-semibold mb-2">Aktuelles Guthaben</h2>
-                <p className="text-gray-600">Das aktuelle Guthaben beträgt: <span className="font-bold">{balance.toFixed(2)} €</span></p>
+                <p className="text-gray-600">Das aktuelle Guthaben beträgt: <span className="font-bold">{balance} €</span></p>
             </div>
         </div>
 </ProtectedRoute>
