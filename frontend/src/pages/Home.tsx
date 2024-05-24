@@ -3,13 +3,33 @@ import { motion } from "framer-motion";
 import ProtectedRoute from "../components/ProtectedRoute";
 import FrontPage from "../assets/FrontPage.jpeg";
 import NavBar from "../components/NavBar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Home = () => {
-    const username: string = localStorage.getItem('username') || 'Benutzer';
-    const balance: string = localStorage.getItem('balance') || 'Nicht vorhanden!';
-    const bankAccountNumber: string = localStorage.getItem('bankAccountNumber') || 'Nicht verfügbar';
-    const recentTransactionsString = localStorage.getItem('recentTransactions');
-    const recentTransactions: Transaction[] = recentTransactionsString ? JSON.parse(recentTransactionsString) : [];
+    const [username, setUsername] = useState('');
+    const [balance, setBalance] = useState('');
+    const [bankAccountNumber, setBankAccountNumber] = useState('');
+    const [recentTransactions, setRecentTransactions] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const accountId = localStorage.getItem('accountId'); // get the account id
+                const response = await axios.get(`/api/bankAccount/getById/${accountId}`);
+
+                // update state with the new data
+                setUsername(response.data.accountName);
+                setBalance(response.data.balance.toString());
+                setBankAccountNumber(response.data.bankAccountNumber);
+                setRecentTransactions(JSON.parse(response.data.transferRequests));
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     interface Transaction {
         date: string;

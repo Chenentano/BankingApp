@@ -19,6 +19,7 @@ const LoginPage = () => {
                 localStorage.setItem('username', response.data.accountName);
                 localStorage.setItem('balance', response.data.balance);
                 localStorage.setItem('bankAccountNumber', response.data.bankAccountNumber);
+                localStorage.setItem('accountId', response.data.id);
                 navigate("/home");
                 setAccount({ accountName: '', password: '' });
             }
@@ -37,11 +38,27 @@ const LoginPage = () => {
             const timeout = setTimeout(() => {
                 setIsLoading(false);
             }, 1000);
+
+            const fetchData = async () => {
+                try {
+                    const accountId = localStorage.getItem('accountId'); // get the account id
+                    const response = await axios.get(`/api/bankAccount/getById/${accountId}`);
+
+                    // update localStorage with the new data
+                    localStorage.setItem('username', response.data.accountName);
+                    localStorage.setItem('balance', response.data.balance.toString());
+                    localStorage.setItem('bankAccountNumber', response.data.bankAccountNumber);
+                    localStorage.setItem('recentTransactions', JSON.stringify(response.data.transferRequests));
+                } catch (error) {
+                    console.error('Failed to fetch data:', error);
+                }
+            };
+
+            fetchData();
             navigate("/home");
             return () => clearTimeout(timeout);
         }
     }, [navigate]);
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAccount({
             ...account,
