@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 import com.example.backend.entity.Account;
+import com.example.backend.entity.TransferRequest;
 import com.example.backend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -83,9 +84,14 @@ public class AccountController {
         }
     }
 
-    @PutMapping("/transfer/{senderAccountNumber}/{recieverAccountNumber}/{amount}")
-    public Account transferMoney(@PathVariable Long senderAccountNumber, @PathVariable Long recieverAccountNumber , @PathVariable Double amount) {
-        return service.transferMoney(senderAccountNumber,recieverAccountNumber,amount);
+    @PostMapping("/transfer")
+    public ResponseEntity<?> transferMoney(@RequestBody TransferRequest request) {
+        try {
+            Account sender = service.transferMoney(request);
+            return ResponseEntity.ok(sender);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 }

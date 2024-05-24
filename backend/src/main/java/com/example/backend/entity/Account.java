@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,7 +39,10 @@ public class Account {
     @Column(length = 65,nullable=false)
     private String password;
 
-    private double balance;
+    private BigDecimal balance;
 
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<TransferRequest> transferRequests;
 
 }

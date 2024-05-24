@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.entity.Account;
+import com.example.backend.entity.TransferRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public interface AccountService {
     Account depositMoney(Long accountNumber, Double amount);
     Account withdrawMoney(Long accountNumber, Double amount);
     boolean closeAccount(Long accountNumber);
-    Account transferMoney(Long senderAccountNumber, Long recieverAccountNumber, Double amount);
+    Account transferMoney(TransferRequest request);
+
     public void updateExistingAccounts();
 
 }
