@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar.tsx";
 import { motion } from 'framer-motion';
 
 interface Transaction {
-    id: number;
+    transactionId: string;
     msg: string;
     amount: number;
     senderAccountNumber: string;
@@ -66,8 +66,8 @@ const AccountTransactionPage = () => {
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                         {transactions.map(transaction => (
-                            <tr key={transaction.id}>
-                                <td className="px-6 py-4 whitespace-nowrap">{transaction.id}</td>
+                            <tr key={transaction.transactionId}>
+                                <td className="px-6 py-4 whitespace-nowrap">{transaction.transactionId}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{transaction.msg}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{transaction.senderAccountNumber}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{transaction.receiverAccountNumber}</td>
