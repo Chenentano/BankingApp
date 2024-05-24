@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,6 +15,11 @@ const TransferForm: React.FC = () => {
 
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
+
+    useEffect(() => {
+        const bankAccountNumber = localStorage.getItem('bankAccountNumber');
+        setFormData(prevState => ({ ...prevState, sender: bankAccountNumber || '' }));
+    }, []);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -64,6 +69,8 @@ const TransferForm: React.FC = () => {
         }
     };
 
+
+
     return (
         <ProtectedRoute>
             <NavBar/>
@@ -81,6 +88,7 @@ const TransferForm: React.FC = () => {
                             className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="Sender Name"
                             required
+                            disabled
                         />
                     </div>
                     <div>
