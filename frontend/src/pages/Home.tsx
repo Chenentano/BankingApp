@@ -10,7 +10,6 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [balance, setBalance] = useState('');
     const [bankAccountNumber, setBankAccountNumber] = useState('');
-    const [recentTransactions, setRecentTransactions] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,7 +20,6 @@ const Home = () => {
                 setUsername(response.data.accountName);
                 setBalance(Number(response.data.balance).toFixed(2));
                 setBankAccountNumber(response.data.bankAccountNumber);
-                setRecentTransactions(response.data.transferRequests);
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             }
@@ -29,12 +27,6 @@ const Home = () => {
 
         fetchData();
     }, []);
-
-    interface Transaction {
-        date: string;
-        description: string;
-        amount: string;
-    }
 
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -49,7 +41,7 @@ const Home = () => {
     return (
         <ProtectedRoute>
             <div>
-                <NavBar />
+                <NavBar/>
                 <motion.div
                     className="container mx-auto mt-8 text-center"
                     initial="hidden"
@@ -90,31 +82,6 @@ const Home = () => {
                             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md inline-block mt-4"
                         >
                             Umsätze anzeigen
-                        </Link>
-                    </motion.div>
-                </motion.div>
-                <motion.div
-                    className="container mx-auto bg-white shadow-lg rounded-lg p-6 mt-8 max-w-md"
-                    initial="hidden"
-                    animate="visible"
-                    variants={containerVariants}
-                >
-                    <motion.h2 className="text-2xl font-semibold mb-4" variants={itemVariants}>
-                        Letzte Transaktionen
-                    </motion.h2>
-                    <ul className="text-lg">
-                        {recentTransactions.length > 0 ? recentTransactions.map((transaction: Transaction, index: number) => (
-                            <motion.li key={index} className="mb-2" variants={itemVariants}>
-                                {transaction.date}: {transaction.description} - {transaction.amount}€
-                            </motion.li>
-                        )) : <motion.li variants={itemVariants}>Keine Transaktionen verfügbar.</motion.li>}
-                    </ul>
-                    <motion.div variants={itemVariants}>
-                        <Link
-                            to="/account-transactions"
-                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md inline-block mt-4"
-                        >
-                            Alle Transaktionen anzeigen
                         </Link>
                     </motion.div>
                 </motion.div>
