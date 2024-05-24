@@ -15,14 +15,13 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const accountId = localStorage.getItem('accountId'); // get the account id
+                const accountId = localStorage.getItem('accountId');
                 const response = await axios.get(`/api/bankAccount/getById/${accountId}`);
 
-                // update state with the new data
                 setUsername(response.data.accountName);
-                setBalance(response.data.balance.toString());
+                setBalance(Number(response.data.balance).toFixed(2));
                 setBankAccountNumber(response.data.bankAccountNumber);
-                setRecentTransactions(JSON.parse(response.data.transferRequests));
+                setRecentTransactions(response.data.transferRequests);
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             }

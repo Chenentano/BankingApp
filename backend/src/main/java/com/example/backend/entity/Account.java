@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -38,7 +39,7 @@ public class Account {
     @Column(length = 65,nullable=false)
     private String password;
 
-    private double balance;
+    private BigDecimal balance;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
