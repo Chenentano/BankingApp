@@ -25,8 +25,8 @@ export default function NavBar() {
                 <div>
                     <Link to="/home" className="text-white mr-4">Startseite</Link>
                     <Link to="/transfer-form" className="text-white mr-4">Überweisung</Link>
-                    <Link to="/debit-balance" className="text-white mr-4">Lastschrift</Link>
                     <Link to="/account-transactions" className="text-white mr-4">Umsätze anzeigen</Link>
+                    <Link to="/currency-converter" className="text-white mr-4">Währungsrechner</Link>
                     <button
                         onClick={handleLogout}
                         className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md"
