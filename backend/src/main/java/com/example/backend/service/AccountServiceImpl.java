@@ -135,11 +135,12 @@ public class AccountServiceImpl implements AccountService {
         Account recipient = repo.findByBankAccountNumber(request.getReceiverAccountNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + request.getReceiverAccountNumber()));
 
+        BigDecimal amountWithFee = BigDecimal.valueOf(request.getAmount()).multiply(BigDecimal.valueOf(1.025));
 
         if (sender.getBalance().compareTo(BigDecimal.valueOf(request.getAmount())) < 0) {
             throw new IllegalArgumentException("Sender hat nicht genug Geld!");
         }
-        sender.setBalance(sender.getBalance().subtract(BigDecimal.valueOf(request.getAmount())));
+        sender.setBalance(sender.getBalance().subtract(amountWithFee));
         recipient.setBalance(recipient.getBalance().add(BigDecimal.valueOf(request.getAmount())));
 
 

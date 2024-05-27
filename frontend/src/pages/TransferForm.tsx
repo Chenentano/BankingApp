@@ -34,7 +34,8 @@ const TransferForm: React.FC = () => {
 
         const senderAccountNumber = formData.sender;
         const receiverAccountNumber = formData.recipient;
-        const amount = formData.amount;
+        const amount = parseFloat(formData.amount);
+        const amountFee = amount * 0.15;
 
         try {
             await axios.post('/api/bankAccount/transfer', {
@@ -46,13 +47,15 @@ const TransferForm: React.FC = () => {
             });
 
             setFormData({
-                sender: '',
+                sender: senderAccountNumber,
                 recipient: '',
                 amount: '',
                 message: '',
             });
 
-            setMessage('Transfer erfolgreich!');
+            setMessage("Überweisung an " + receiverAccountNumber + " erfolgreich. Summe: " + amount + "€."
+                + " Transaktionsgebühr: " + amountFee + "€."
+            );
             setMessageType('success');
 
         } catch (error : unknown) {
