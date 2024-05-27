@@ -1,11 +1,11 @@
 package com.example.backend.service;
 
+import com.example.backend.controller.AccountController;
 import com.example.backend.entity.Account;
 import com.example.backend.entity.CurrencyExchange;
 import com.example.backend.entity.TransferRequest;
 import com.example.backend.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -87,7 +88,11 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Account nicht gefunden!");
         }
         Account depositAccount = account.get();
-        BigDecimal totalBalance = depositAccount.getBalance().add(BigDecimal.valueOf(amount));
+        BigDecimal balance = depositAccount.getBalance();
+        if (balance == null) {
+            balance = BigDecimal.ZERO;
+        }
+        BigDecimal totalBalance = balance.add(BigDecimal.valueOf(amount));
         depositAccount.setBalance(totalBalance);
         repo.save(depositAccount);
 
@@ -99,11 +104,15 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> account = repo.findById(accountNumber);
         if (account.isEmpty()) {
             throw new RuntimeException("Account nicht gefunden!");
-        } else if (account.get().getBalance().compareTo(BigDecimal.valueOf(amount)) < 0) {
-            throw new RuntimeException("Die Summe zum abbuchen ist größer als das Guthaben!");
         }
         Account depositAccount = account.get();
-        BigDecimal totalBalance = depositAccount.getBalance().subtract(BigDecimal.valueOf(amount));
+        BigDecimal balance = depositAccount.getBalance();
+        if (balance == null) {
+            throw new RuntimeException("Die Summe zum abbuchen ist größer als das Guthaben!");
+        } else if (balance.compareTo(BigDecimal.valueOf(amount)) < 0) {
+            throw new RuntimeException("Die Summe zum abbuchen ist größer als das Guthaben!");
+        }
+        BigDecimal totalBalance = balance.subtract(BigDecimal.valueOf(amount));
         depositAccount.setBalance(totalBalance);
         repo.save(depositAccount);
 
@@ -125,23 +134,39 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + request.getSenderAccountNumber()));
         Account recipient = repo.findByBankAccountNumber(request.getReceiverAccountNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + request.getReceiverAccountNumber()));
+
+
         if (sender.getBalance().compareTo(BigDecimal.valueOf(request.getAmount())) < 0) {
             throw new IllegalArgumentException("Sender hat nicht genug Geld!");
         }
         sender.setBalance(sender.getBalance().subtract(BigDecimal.valueOf(request.getAmount())));
         recipient.setBalance(recipient.getBalance().add(BigDecimal.valueOf(request.getAmount())));
 
-        TransferRequest transferRequest = new TransferRequest();
-        transferRequest.setMsg(request.getMsg());
-        transferRequest.setTransactionId(request.getTransactionId());
-        transferRequest.setAccount(sender);
-        transferRequest.setSenderAccountNumber(request.getSenderAccountNumber());
-        transferRequest.setReceiverAccountNumber(request.getReceiverAccountNumber());
-        transferRequest.setAmount(request.getAmount());
-        sender.getTransferRequests().add(transferRequest);
+
+        TransferRequest senderTransferRequest = new TransferRequest();
+        senderTransferRequest.setMsg(request.getMsg());
+        senderTransferRequest.setTransactionId(request.getTransactionId());
+        senderTransferRequest.setAccount(sender);
+        senderTransferRequest.setSenderAccountNumber(request.getSenderAccountNumber());
+        senderTransferRequest.setReceiverAccountNumber(request.getReceiverAccountNumber());
+        senderTransferRequest.setAmount(request.getAmount());
+        sender.getTransferRequests().add(senderTransferRequest);
+
+        TransferRequest recipientTransferRequest = new TransferRequest();
+        recipientTransferRequest.setMsg(request.getMsg());
+        recipientTransferRequest.setTransactionId(request.getTransactionId());
+        recipientTransferRequest.setAccount(recipient);
+        recipientTransferRequest.setSenderAccountNumber(request.getSenderAccountNumber());
+        recipientTransferRequest.setReceiverAccountNumber(request.getReceiverAccountNumber());
+        recipientTransferRequest.setAmount(request.getAmount());
+        recipient.getTransferRequests().add(recipientTransferRequest);
 
         repo.save(sender);
         repo.save(recipient);
+
+        repo.save(sender);
+        repo.save(recipient);
+
 
         return sender;
     }
