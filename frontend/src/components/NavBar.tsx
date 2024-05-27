@@ -27,7 +27,6 @@ export default function NavBar() {
                     <Link to="/transfer-form" className="text-white mr-4">Überweisung</Link>
                     <Link to="/account-transactions" className="text-white mr-4">Umsätze anzeigen</Link>
                     <Link to="/currency-converter" className="text-white mr-4">Währungsrechner</Link>
-                    <Link to="/bilanz" className="text-white mr-4">Bilanz</Link>
                     <button
                         onClick={handleLogout}
                         className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md"
