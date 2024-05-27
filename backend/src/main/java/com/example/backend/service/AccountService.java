@@ -19,6 +19,8 @@ public interface AccountService {
     boolean closeAccount(Long accountNumber);
     Account transferMoney(TransferRequest request);
 
+
     public void updateExistingAccounts();
 
+    Double convertCurrency(String from, String to);
 }

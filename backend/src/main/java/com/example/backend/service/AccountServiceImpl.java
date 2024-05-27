@@ -1,24 +1,30 @@
 package com.example.backend.service;
 
 import com.example.backend.entity.Account;
+import com.example.backend.entity.CurrencyExchange;
 import com.example.backend.entity.TransferRequest;
 import com.example.backend.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service("AccountServiceImpl")
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository repo;
-
 
     @Override
     public Account createAccount(Account account) {
@@ -159,7 +165,54 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public Double convertCurrency(String from, String to) {
+        return getaDouble(from, to);
+    }
+
+    public static Double getaDouble(String from, String to) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://v6.exchangerate-api.com/v6/" + System.getenv("CURRENCY_API_KEY") + "/latest/" + from;
+        ResponseEntity<CurrencyExchange> response;
+
+        try {
+            response = restTemplate.getForEntity(url, CurrencyExchange.class);
+            CurrencyExchange responseBody = response.getBody();
+            if(responseBody != null) {
+                System.out.println(responseBody.toString());
+            }
+        } catch (HttpClientErrorException.NotFound ex) {
+            throw new RuntimeException("API endpoint not found. Please check the base URL and API key.");
+        } catch (HttpClientErrorException.Unauthorized ex) {
+            throw new RuntimeException("Invalid API key. Please check the API key.");
+        } catch (HttpClientErrorException.BadRequest ex) {
+            throw new RuntimeException("Invalid currency code. Please check the 'from' and 'to' parameters.");
+        } catch (RestClientException ex) {
+            throw new RuntimeException("Unable to make a request to the API. Please check your network connection.");
+        }
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            if (response.getBody() != null) {
+                if (response.getBody().getConversion_rates() != null) {
+                    Double rate = response.getBody().getConversion_rates().get(to);
+                    if (rate != null) {
+                        return rate;
+                    } else {
+                        throw new RuntimeException("'to' currency rate not found in the response.");
+                    }
+                } else {
+                    throw new RuntimeException("Response does not contain 'rates'.");
+                }
+            } else {
+                throw new RuntimeException("Response body is null.");
+            }
+        } else {
+            throw new RuntimeException("API request was not successful. Returned status code: " + response.getStatusCode());
+        }
+    }
 }
+
 
 
 

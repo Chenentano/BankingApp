@@ -17,7 +17,7 @@ public class WebSecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/bankAccount/auth/login").permitAll()
+                        .requestMatchers("/api/bankAccount/auth/login", "/api/bankAccount/convertCurrency").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
