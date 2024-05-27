@@ -4,8 +4,8 @@ import CurrencyConverter from "../components/CurrencyConverter";
 import NavBar from "../components/NavBar.tsx";
 
 function CurrencyConverterForm() {
-    const [from, setFrom] = useState('USD');
-    const [to, setTo] = useState('EUR');
+    const [from, setFrom] = useState('EUR');
+    const [to, setTo] = useState('USD');
     const [amount, setAmount] = useState(1);
     const [convertedAmount, setConvertedAmount] = useState(0);
 
