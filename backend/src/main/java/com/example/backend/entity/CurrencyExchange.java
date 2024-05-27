@@ -12,5 +12,4 @@ import java.util.Map;
 public class CurrencyExchange {
     private String base;
     private Map<String, Double> conversion_rates;
-
 }
