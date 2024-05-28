@@ -36,6 +36,9 @@ public class Account {
     @Email
     private String email;
 
+    @Column(length = 20,nullable=false)
+    private String telephone;
+
     @Column(length = 65,nullable=false)
     private String password;
 
