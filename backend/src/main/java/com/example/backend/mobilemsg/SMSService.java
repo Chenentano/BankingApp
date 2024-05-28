@@ -1,4 +1,4 @@
-package com.example.backend.service;
+/*package com.example.backend.mobilemsg;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -30,3 +30,4 @@ public class SMSService {
         System.out.println("SMS sent successfully. ID: " + message.getSid());
     }
 }
+ */

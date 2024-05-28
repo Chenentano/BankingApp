@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import backgroundImage from '../assets/Auth_Background.png';
+import backgroundImage from '../../assets/Auth_Background.png';
 
 const RegisterPage = () => {
     const [account, setAccount] = useState({ accountName: "", password: "", email: "" });
@@ -105,9 +105,8 @@ const RegisterPage = () => {
                     >
                         <p className="text-sm text-gray-600">
                             Sie haben schon einen Account? <Link to="/login"
-                                                                 className="text-indigo-600 hover:text-indigo-500">Sign
-                            in</Link>
-                        </p>
+                                                                 className="text-indigo-600 hover:text-indigo-500">Hier einloggen!</Link>
+                        </p><br/>
                         <p className="text-md text-gray-600">
                             <Link to="/"
                                   className="text-indigo-600 hover:text-indigo-500">Zurück zur Startseite</Link>

@@ -1,4 +1,4 @@
-package com.example.backend.entity;
+package com.example.backend.currency;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

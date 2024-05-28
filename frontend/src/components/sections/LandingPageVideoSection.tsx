@@ -1,4 +1,4 @@
-import videoBg from "../assets/videoBg.mp4";
+import videoBg from "../../assets/videoBg.mp4";
 
 const LandingPageVideoSection = () => {
     return (

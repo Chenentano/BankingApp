@@ -1,10 +1,7 @@
-package com.example.backend.service;
+package com.example.backend.account;
 
-import com.example.backend.controller.AccountController;
-import com.example.backend.entity.Account;
-import com.example.backend.entity.CurrencyExchange;
-import com.example.backend.entity.TransferRequest;
-import com.example.backend.repository.AccountRepository;
+import com.example.backend.currency.CurrencyExchange;
+import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

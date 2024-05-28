@@ -1,7 +1,6 @@
-package com.example.backend.service;
+package com.example.backend.account;
 
-import com.example.backend.entity.Account;
-import com.example.backend.entity.TransferRequest;
+import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

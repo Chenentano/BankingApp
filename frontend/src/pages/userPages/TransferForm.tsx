@@ -2,8 +2,8 @@ import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-import ProtectedRoute from "../components/ProtectedRoute.tsx";
-import NavBar from "../components/NavBar.tsx";
+import ProtectedRoute from "../../components/security/ProtectedRoute.tsx";
+import HomeNavBar from "../../components/navigationBars/HomeNavBar.tsx";
 
 const TransferForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -76,7 +76,7 @@ const TransferForm: React.FC = () => {
 
     return (
         <ProtectedRoute>
-            <NavBar/>
+            <HomeNavBar/>
             <div className="max-w-lg mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
                 <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">Überweisung</h2>
                 {message && <div className={`text-center ${messageType === 'success' ? 'text-green-500' : 'text-red-500'}`}>{message}</div>}

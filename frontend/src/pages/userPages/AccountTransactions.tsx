@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProtectedRoute from "../components/ProtectedRoute";
-import NavBar from "../components/NavBar";
+import ProtectedRoute from "../../components/security/ProtectedRoute.tsx";
+import HomeNavBar from "../../components/navigationBars/HomeNavBar.tsx";
 import { motion } from 'framer-motion';
-import TransactionChart from '../components/TransactionChart';
+import TransactionChart from '../../components/userFeatures/TransactionChart.tsx';
 
 interface Transaction {
     transactionId: string;
@@ -47,7 +47,7 @@ const AccountTransactionPage = () => {
     return (
         <ProtectedRoute>
             <div className="flex">
-                <NavBar />
+                <HomeNavBar />
                 <motion.div className="container mx-auto mt-8 ml-64"
                             initial={{}}
                             animate={{}}

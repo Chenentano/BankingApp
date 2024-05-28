@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import CurrencyConverter from "../components/CurrencyConverter";
-import NavBar from "../components/NavBar.tsx";
+import CurrencyConverter from "../../components/userFeatures/CurrencyConverter.tsx";
+import HomeNavBar from "../../components/navigationBars/HomeNavBar.tsx";
 
 function CurrencyConverterForm() {
     const [from, setFrom] = useState('EUR');
@@ -18,7 +18,7 @@ function CurrencyConverterForm() {
 
     return (
         <>
-            <NavBar/>
+            <HomeNavBar/>
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

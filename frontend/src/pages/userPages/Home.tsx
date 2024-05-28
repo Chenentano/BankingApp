@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ProtectedRoute from "../components/ProtectedRoute";
-import FrontPage from "../assets/FrontPage.jpeg";
-import NavBar from "../components/NavBar";
+import ProtectedRoute from "../../components/security/ProtectedRoute.tsx";
+import FrontPage from "../../assets/FrontPage.jpeg";
+import HomeNavBar from "../../components/navigationBars/HomeNavBar.tsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -41,7 +41,7 @@ const Home = () => {
     return (
         <ProtectedRoute>
             <div>
-                <NavBar/>
+                <HomeNavBar/>
                 <motion.div
                     className="container mx-auto mt-8 text-center"
                     initial="hidden"

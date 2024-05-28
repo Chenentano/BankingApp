@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
-import BankingLogo from "../assets/BankingLogo.png"
+import BankingLogo from "../../assets/BankingLogo.png"
 
 function LandingNavBar(){
     const scrollToSection = (sectionId: string) => {
@@ -64,7 +64,7 @@ function LandingNavBar(){
             <Link to="/login"
                   className="bg-indigo-600 text-white px-6 py-2 mr-32 ml-20 rounded-full hover:bg-indigo-700 transition-transform transform hover:scale-105"
             >
-                Login
+                Einloggen
             </Link>
         </header>
             </>

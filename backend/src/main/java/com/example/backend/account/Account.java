@@ -1,5 +1,6 @@
-package com.example.backend.entity;
+package com.example.backend.account;
 
+import com.example.backend.account.transfer.TransferRequest;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
