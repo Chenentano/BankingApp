@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import LandingNavBar from "../components/LandingNavBar.tsx";
 import LandingPageVideoSection from "../components/LandingPageVideoSection.tsx";
+import Mitarbeiter from "../assets/Mitarbeiter.jpg";
 
 const LandingPage: React.FC = () => {
     return (
@@ -77,17 +78,18 @@ const LandingPage: React.FC = () => {
                                     <motion.div
                                         key={i}
                                         className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105"
-                                        initial={{ opacity: 0, y: 50 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 1, delay: 0.3 * i }}
+                                        initial={{opacity: 0, y: 50}}
+                                        animate={{opacity: 1, y: 0}}
+                                        transition={{duration: 1, delay: 0.3 * i}}
                                     >
                                         <div
                                             className="h-64 bg-cover bg-center"
-                                            style={{ backgroundImage: `url(../assets/Mitarbeiter.jpg)` }}
+                                            style={{backgroundImage: `url(${Mitarbeiter})`}}
                                         ></div>
                                         <div className="p-6">
                                             <h3 className="text-2xl font-semibold mb-4 text-indigo-600">Mitarbeiter {i + 1}</h3>
-                                            <p className="text-lg text-gray-700">Spezialist für Finanzdienstleistungen</p>
+                                            <p className="text-lg text-gray-700">Spezialist für
+                                                Finanzdienstleistungen</p>
                                         </div>
                                     </motion.div>
                                 ))}

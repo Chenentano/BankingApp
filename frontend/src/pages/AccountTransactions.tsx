@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProtectedRoute from "../components/ProtectedRoute";
 import NavBar from "../components/NavBar";
@@ -46,69 +46,75 @@ const AccountTransactionPage = () => {
 
     return (
         <ProtectedRoute>
-            <NavBar/>
-            <motion.div className="container mx-auto mt-8"
-                        initial={{opacity: 0}}
-                        animate={{opacity: 1}}
-                        transition={{duration: 0.5}}
-            >
-                <motion.h1 className="text-3xl font-semibold mb-4"
-                           initial={{opacity: 0}}
-                           animate={{opacity: 1}}
-                           transition={{duration: 0.5}}
+            <div className="flex">
+                <NavBar />
+                <motion.div className="container mx-auto mt-8 ml-64"
+                            initial={{}}
+                            animate={{}}
+                            transition={{}}
                 >
-                    Umsätze
-                </motion.h1>
-                <div className="flex flex-col items-center justify-center">
-                    <div className="text-center">
-                        <h2 className="text-2xl font-semibold mb-4">Bilanz Grafik</h2>
-                        <TransactionChart income={income} outcome={outcome}/>
+                    <motion.h1 className="text-3xl font-semibold mb-4 text-center"
+                               initial={{}}
+                               animate={{}}
+                               transition={{}}
+                    >
+                        Umsätze
+                    </motion.h1>
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="text-center">
+                            <h2 className="text-2xl font-semibold mb-4">Bilanz Grafik</h2>
+                            <TransactionChart income={income} outcome={outcome}/>
+                        </div>
                     </div>
-                </div>
-                <motion.div className="bg-white shadow-lg rounded-lg overflow-hidden mb-8"
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            transition={{duration: 0.5}}
-                >
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaktions-ID</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaktionsdetails</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Von
-                                Konto
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zu
-                                Konto
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Betrag</th>
-                        </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                        {transactions.map(transaction => (
-                            <tr key={transaction.transactionId}>
-                                <td className="px-6 py-4 whitespace-nowrap">{transaction.transactionId}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{transaction.msg}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{transaction.senderAccountNumber}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{transaction.receiverAccountNumber}</td>
-                                <td className={`px-6 py-4 whitespace-nowrap text-right ${transaction.senderAccountNumber === currentAccountNumber ? 'text-red-500 font-bold' : 'text-green-500 font-bold'}`}>
-                                    {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount).toFixed(2)} €
-                                </td>
+                    <motion.div className="bg-white shadow-lg rounded-lg overflow-hidden mb-8"
+                                initial={{}}
+                                animate={{}}
+                                transition={{}}
+                    >
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaktions-ID</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaktionsdetails</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Von
+                                    Konto
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zu
+                                    Konto
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Betrag</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                            {transactions.map(transaction => (
+                                <tr key={transaction.transactionId}>
+                                    <td className="px-6 py-4 whitespace-nowrap">{transaction.transactionId}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{transaction.msg}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{transaction.senderAccountNumber}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{transaction.receiverAccountNumber}</td>
+                                    <td className={`px-6 py-4 whitespace-nowrap text-right ${transaction.senderAccountNumber === currentAccountNumber ? 'text-red-500 font-bold' : 'text-green-500 font-bold'}`}>
+                                        {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount).toFixed(2)} €
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </motion.div>
+                    <motion.div className="bg-white shadow-lg rounded-lg p-4 mb-8"
+                                initial={{}}
+                                animate={{}}
+                                transition={{}}
+                    >
+                        <p className="text-gray-600 text-right">
+                            Das aktuelle Guthaben beträgt: <br/>
+                            <span className={`font-bold ${balance < 0 ? 'text-red-500' : 'text-green-500'}`}
+                                  style={{overflowX: 'auto'}}>
+            {balance < 0 ? '-' : ''}{Math.abs(balance).toFixed(2)} €
+        </span>
+                        </p>
+                    </motion.div>
                 </motion.div>
-                <motion.div className="bg-white shadow-lg rounded-lg p-4 mb-8"
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            transition={{duration: 0.5}}
-                >
-                    <p className="text-gray-600 text-right">Das aktuelle Guthaben beträgt: <br/><span
-                        className={`font-bold ${balance < 0 ? 'text-red-500' : 'text-green-500'}`}>
-                        {balance < 0 ? '-' : ''}{Math.abs(balance).toFixed(2)} €</span></p>
-                </motion.div>
-            </motion.div>
+            </div>
         </ProtectedRoute>
     );
 };
