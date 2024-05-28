@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import Home from "./pages/Home.tsx";
 import WelcomePage from "./pages/WelcomePage.tsx";
-import NotAuthorised from "./pages/Not-Authorised.tsx";
+import NotAuthorised from "./components/Not-Authorised.tsx";
 import TransferForm from "./pages/TransferForm.tsx";
 import AccountTransactions from "./pages/AccountTransactions.tsx";
 import CurrencyConverterForm from "./pages/CurrencyConverterForm.tsx";
