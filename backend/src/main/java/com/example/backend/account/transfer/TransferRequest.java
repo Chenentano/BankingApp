@@ -25,6 +25,7 @@ public class TransferRequest {
     private String senderAccountNumber;
     private String receiverAccountNumber;
     private Double amount;
+    private Double fee;
     private String msg;
     private String transactionId;
 }

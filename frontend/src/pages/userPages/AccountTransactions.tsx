@@ -9,6 +9,7 @@ interface Transaction {
     transactionId: string;
     msg: string;
     amount: number;
+    fee: number;
     senderAccountNumber: string;
     receiverAccountNumber: string;
 }
@@ -30,8 +31,9 @@ const AccountTransactionPage = () => {
                 let newIncome = 0;
                 let newOutcome = 0;
                 response.data.transferRequests.forEach((transaction: Transaction) => {
+                    const fee = transaction.fee || 0;
                     if (transaction.senderAccountNumber === currentAccountNumber) {
-                        newOutcome += transaction.amount;
+                        newOutcome += transaction.amount + fee;
                     } else {
                         newIncome += transaction.amount;
                     }
@@ -93,7 +95,7 @@ const AccountTransactionPage = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">{transaction.senderAccountNumber}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{transaction.receiverAccountNumber}</td>
                                     <td className={`px-6 py-4 whitespace-nowrap text-right ${transaction.senderAccountNumber === currentAccountNumber ? 'text-red-500 font-bold' : 'text-green-500 font-bold'}`}>
-                                        {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount).toFixed(2)} €
+                                        {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount + (transaction.fee || 0)).toFixed(2)} €
                                     </td>
                                 </tr>
                             ))}
