@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import backgroundImage from '../../assets/Auth_Background.png';
 
 const RegisterPage = () => {
-    const [account, setAccount] = useState({ accountName: "", password: "", email: "" });
+    const [account, setAccount] = useState({ accountName: "", password: "", email: "",
+        telephone: ""
+    });
     const navigate = useNavigate();
 
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,9 +20,10 @@ const RegisterPage = () => {
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('username', response.data.accountName);
                 localStorage.setItem('balance', response.data.balance);
+                localStorage.setItem('telephone', response.data.telephone);
                 localStorage.setItem('bankAccountNumber', response.data.bankAccountNumber);
                 navigate("/home");
-                setAccount({ accountName: '', password: '', email: '' });
+                setAccount({ accountName: '', password: '', email: '', telephone: ''});
             }
         } catch (err) {
             console.error("Account konnte nicht erstellt werden!", err);
@@ -57,43 +60,56 @@ const RegisterPage = () => {
                 <form onSubmit={handleRegister}>
                     <motion.div
                         className="mb-5"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 0.6}}
                     >
                         <label htmlFor="accountName" className={labelClasses}>Username</label>
                         <input type="text" id="accountName" name="accountName" className={inputClasses}
-                               placeholder="Enter your username" value={account.accountName}
-                               onChange={handleInputChange} />
+                               placeholder="MaxMustermann" value={account.accountName}
+                               onChange={handleInputChange}/>
                     </motion.div>
                     <motion.div
                         className="mb-5"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 0.9}}
                     >
                         <label htmlFor="email" className={labelClasses}>E-Mail</label>
                         <input type="email" id="email" name="email" className={inputClasses}
                                placeholder="example@gmail.com" value={account.email}
-                               onChange={handleInputChange} />
+                               onChange={handleInputChange}/>
+                    </motion.div>
+                    <motion.div
+                        className="mb-5"
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 0.9}}
+                    >
+                        {/* Pattern für später pattern="^0[17][0-9]{9}*/}
+                        <label htmlFor="telephone" className={labelClasses}>Telefonnummer</label>
+                        <input type="tel" id="telephone" name="telephone"
+                               title="Die Telefonnummer muss das Format haben 0[17]XXXXXXXXX"
+                               className={inputClasses} placeholder="0[17]XXXXXXXXX"
+                               value={account.telephone} onChange={handleInputChange}/>
                     </motion.div>
                     <motion.div
                         className="mb-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.2 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 1.2}}
                     >
                         <label htmlFor="password" className={labelClasses}>Password</label>
                         <input type="password" id="password" name="password" className={inputClasses}
-                               placeholder="Enter your password" value={account.password}
-                               onChange={handleInputChange} />
+                               placeholder="Passwort" value={account.password}
+                               onChange={handleInputChange}/>
                     </motion.div>
                     <motion.button
                         type="submit"
                         className={buttonClasses}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.5 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 1.5}}
                     >
                         Register
                     </motion.button>
@@ -105,7 +121,8 @@ const RegisterPage = () => {
                     >
                         <p className="text-sm text-gray-600">
                             Sie haben schon einen Account? <Link to="/login"
-                                                                 className="text-indigo-600 hover:text-indigo-500">Hier einloggen!</Link>
+                                                                 className="text-indigo-600 hover:text-indigo-500">Hier
+                            einloggen!</Link>
                         </p><br/>
                         <p className="text-md text-gray-600">
                             <Link to="/"
