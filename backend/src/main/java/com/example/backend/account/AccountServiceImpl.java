@@ -4,7 +4,6 @@ import com.example.backend.currency.CurrencyExchange;
 import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -168,7 +167,6 @@ public class AccountServiceImpl implements AccountService {
 
         return sender;
     }
-
 
     private String generateBankAccountNumber() {
         return new SecureRandom()
