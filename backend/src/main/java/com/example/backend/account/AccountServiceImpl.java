@@ -4,6 +4,7 @@ import com.example.backend.currency.CurrencyExchange;
 import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class AccountServiceImpl implements AccountService {
     public Account createAccount(Account account) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         account.setPassword(encoder.encode(account.getPassword()));
+
         if (account.getBankAccountNumber() == null || account.getBankAccountNumber().isEmpty()) {
             account.setBankAccountNumber(generateBankAccountNumber());
         }
@@ -124,7 +126,6 @@ public class AccountServiceImpl implements AccountService {
         }
         return false;
     }
-
     @Override
     public Account transferMoney(TransferRequest request) {
         Account sender = repo.findByBankAccountNumber(request.getSenderAccountNumber())
@@ -134,11 +135,14 @@ public class AccountServiceImpl implements AccountService {
 
         BigDecimal amountWithFee = BigDecimal.valueOf(request.getAmount()).multiply(BigDecimal.valueOf(1.15));
 
-        if (sender.getBalance().compareTo(BigDecimal.valueOf(request.getAmount())) < 0) {
+        BigDecimal senderBalance = Optional.ofNullable(sender.getBalance()).orElse(BigDecimal.ZERO);
+        BigDecimal recipientBalance = Optional.ofNullable(recipient.getBalance()).orElse(BigDecimal.ZERO);
+
+        if (senderBalance.compareTo(BigDecimal.valueOf(request.getAmount())) < 0) {
             throw new IllegalArgumentException("Sender hat nicht genug Geld!");
         }
-        sender.setBalance(sender.getBalance().subtract(amountWithFee));
-        recipient.setBalance(recipient.getBalance().add(BigDecimal.valueOf(request.getAmount())));
+        sender.setBalance(senderBalance.subtract(amountWithFee));
+        recipient.setBalance(recipientBalance.add(BigDecimal.valueOf(request.getAmount())));
 
         TransferRequest senderTransferRequest = new TransferRequest();
         senderTransferRequest.setMsg(request.getMsg());
@@ -164,6 +168,7 @@ public class AccountServiceImpl implements AccountService {
 
         return sender;
     }
+
 
     private String generateBankAccountNumber() {
         return new SecureRandom()
