@@ -1,4 +1,4 @@
-/*package com.example.backend.mobilemsg;
+package com.example.backend.mobilemsg;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -27,7 +27,6 @@ public class SMSService {
                         messageBody)
                 .create();
 
-        System.out.println("SMS sent successfully. ID: " + message.getSid());
+        System.out.println("SMS erfolgreich gesendet. ID: " + message.getSid());
     }
 }
- */
