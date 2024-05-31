@@ -2,9 +2,9 @@ package com.example.backend.account;
 
 import com.example.backend.currency.CurrencyExchange;
 import com.example.backend.account.transfer.TransferRequest;
+import com.example.backend.mobilemsg.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository repo;
+
+    @Autowired
+    private SMSService smsService;
 
     @Override
     public Account createAccount(Account account) {
@@ -133,6 +136,8 @@ public class AccountServiceImpl implements AccountService {
         Account recipient = repo.findByBankAccountNumber(request.getReceiverAccountNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + request.getReceiverAccountNumber()));
 
+        String toPhoneNumber = "+49" + recipient.getTelephone().substring(1);
+
         BigDecimal amountWithFee = BigDecimal.valueOf(request.getAmount()).multiply(BigDecimal.valueOf(1.15));
 
         BigDecimal senderBalance = Optional.ofNullable(sender.getBalance()).orElse(BigDecimal.ZERO);
@@ -166,9 +171,11 @@ public class AccountServiceImpl implements AccountService {
         repo.save(sender);
         repo.save(recipient);
 
+        String message = "Sie haben eine Überweisung von " + request.getAmount() + "€ von Konto " + sender.getBankAccountNumber() + " erhalten.";
+        smsService.sendSMS(toPhoneNumber, message);
+
         return sender;
     }
-
 
     private String generateBankAccountNumber() {
         return new SecureRandom()
