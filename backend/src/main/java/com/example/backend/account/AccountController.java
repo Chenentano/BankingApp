@@ -1,7 +1,5 @@
-package com.example.backend.controller;
-import com.example.backend.entity.Account;
-import com.example.backend.entity.TransferRequest;
-import com.example.backend.service.AccountService;
+package com.example.backend.account;
+import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

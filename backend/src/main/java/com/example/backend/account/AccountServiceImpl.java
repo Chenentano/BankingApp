@@ -1,10 +1,7 @@
-package com.example.backend.service;
+package com.example.backend.account;
 
-import com.example.backend.controller.AccountController;
-import com.example.backend.entity.Account;
-import com.example.backend.entity.CurrencyExchange;
-import com.example.backend.entity.TransferRequest;
-import com.example.backend.repository.AccountRepository;
+import com.example.backend.currency.CurrencyExchange;
+import com.example.backend.account.transfer.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -135,14 +132,13 @@ public class AccountServiceImpl implements AccountService {
         Account recipient = repo.findByBankAccountNumber(request.getReceiverAccountNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Ungültige Nummer: " + request.getReceiverAccountNumber()));
 
-        BigDecimal amountWithFee = BigDecimal.valueOf(request.getAmount()).multiply(BigDecimal.valueOf(1.025));
+        BigDecimal amountWithFee = BigDecimal.valueOf(request.getAmount()).multiply(BigDecimal.valueOf(1.15));
 
         if (sender.getBalance().compareTo(BigDecimal.valueOf(request.getAmount())) < 0) {
             throw new IllegalArgumentException("Sender hat nicht genug Geld!");
         }
         sender.setBalance(sender.getBalance().subtract(amountWithFee));
         recipient.setBalance(recipient.getBalance().add(BigDecimal.valueOf(request.getAmount())));
-
 
         TransferRequest senderTransferRequest = new TransferRequest();
         senderTransferRequest.setMsg(request.getMsg());
@@ -151,6 +147,7 @@ public class AccountServiceImpl implements AccountService {
         senderTransferRequest.setSenderAccountNumber(request.getSenderAccountNumber());
         senderTransferRequest.setReceiverAccountNumber(request.getReceiverAccountNumber());
         senderTransferRequest.setAmount(request.getAmount());
+        senderTransferRequest.setFee(amountWithFee.subtract(BigDecimal.valueOf(request.getAmount())).doubleValue());
         sender.getTransferRequests().add(senderTransferRequest);
 
         TransferRequest recipientTransferRequest = new TransferRequest();
@@ -164,10 +161,6 @@ public class AccountServiceImpl implements AccountService {
 
         repo.save(sender);
         repo.save(recipient);
-
-        repo.save(sender);
-        repo.save(recipient);
-
 
         return sender;
     }

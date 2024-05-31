@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import LandingNavBar from "../components/LandingNavBar.tsx";
-import LandingPageVideoSection from "../components/LandingPageVideoSection.tsx";
+import LandingNavBar from "../components/navigationBars/LandingNavBar.tsx";
+import LandingPageVideoSection from "../components/sections/LandingPageVideoSection.tsx";
 import Mitarbeiter from "../assets/Mitarbeiter.jpg";
 
 const LandingPage: React.FC = () => {

@@ -1,5 +1,6 @@
-package com.example.backend.entity;
+package com.example.backend.account.transfer;
 
+import com.example.backend.account.Account;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class TransferRequest {
     private String senderAccountNumber;
     private String receiverAccountNumber;
     private Double amount;
+    private Double fee;
     private String msg;
     private String transactionId;
 }

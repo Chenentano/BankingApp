@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProtectedRoute from "../components/ProtectedRoute";
-import NavBar from "../components/NavBar";
+import ProtectedRoute from "../../components/security/ProtectedRoute.tsx";
+import HomeNavBar from "../../components/navigationBars/HomeNavBar.tsx";
 import { motion } from 'framer-motion';
-import TransactionChart from '../components/TransactionChart';
+import TransactionChart from '../../components/userFeatures/TransactionChart.tsx';
 
 interface Transaction {
     transactionId: string;
     msg: string;
     amount: number;
+    fee: number;
     senderAccountNumber: string;
     receiverAccountNumber: string;
 }
@@ -30,8 +31,9 @@ const AccountTransactionPage = () => {
                 let newIncome = 0;
                 let newOutcome = 0;
                 response.data.transferRequests.forEach((transaction: Transaction) => {
+                    const fee = transaction.fee || 0;
                     if (transaction.senderAccountNumber === currentAccountNumber) {
-                        newOutcome += transaction.amount;
+                        newOutcome += transaction.amount + fee;
                     } else {
                         newIncome += transaction.amount;
                     }
@@ -47,7 +49,7 @@ const AccountTransactionPage = () => {
     return (
         <ProtectedRoute>
             <div className="flex">
-                <NavBar />
+                <HomeNavBar />
                 <motion.div className="container mx-auto mt-8 ml-64"
                             initial={{}}
                             animate={{}}
@@ -93,7 +95,7 @@ const AccountTransactionPage = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">{transaction.senderAccountNumber}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{transaction.receiverAccountNumber}</td>
                                     <td className={`px-6 py-4 whitespace-nowrap text-right ${transaction.senderAccountNumber === currentAccountNumber ? 'text-red-500 font-bold' : 'text-green-500 font-bold'}`}>
-                                        {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount).toFixed(2)} €
+                                        {(transaction.senderAccountNumber === currentAccountNumber ? '-' : '') + Math.abs(transaction.amount + (transaction.fee || 0)).toFixed(2)} €
                                     </td>
                                 </tr>
                             ))}

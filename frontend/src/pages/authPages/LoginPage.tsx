@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import backgroundImage from '../assets/Auth_Background.png';
+import backgroundImage from '../../assets/Auth_Background.png';
 
 const LoginPage = () => {
     const [account, setAccount] = useState({ accountName: "", password: "" });

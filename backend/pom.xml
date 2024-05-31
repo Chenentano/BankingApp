@@ -62,7 +62,8 @@
 			<dependency>
 				<groupId>com.twilio.sdk</groupId>
 				<artifactId>twilio</artifactId>
-				<version>8.19.0</version>
+				<version>10.2.0</version>
+				<scope>compile</scope>
 			</dependency>
             <dependency>
                 <groupId>org.jetbrains</groupId>

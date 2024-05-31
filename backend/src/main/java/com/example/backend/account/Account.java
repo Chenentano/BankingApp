@@ -1,5 +1,6 @@
-package com.example.backend.entity;
+package com.example.backend.account;
 
+import com.example.backend.account.transfer.TransferRequest;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -35,6 +36,9 @@ public class Account {
     @NotNull
     @Email
     private String email;
+
+    @Column(length = 20,nullable=false)
+    private String telephone;
 
     @Column(length = 65,nullable=false)
     private String password;
