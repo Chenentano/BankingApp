@@ -11,6 +11,8 @@ const Home = () => {
     const [balance, setBalance] = useState('');
     const [bankAccountNumber, setBankAccountNumber] = useState('');
 
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
