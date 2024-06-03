@@ -9,7 +9,6 @@ import NotAuthorised from "./pages/authPages/Not-Authorised.tsx";
 import TransferForm from "./pages/userPages/TransferForm.tsx";
 import AccountTransactions from "./pages/userPages/AccountTransactions.tsx";
 import CurrencyConverterForm from "./pages/userPages/CurrencyConverterForm.tsx";
-import Chatbot from "./components/chatbot/chatbot";
 import {useEffect} from "react";
 import Kommunicate from "@kommunicate/kommunicate-chatbot-plugin";
 
@@ -34,7 +33,6 @@ function App() {
           <Route path="/transfer-form" element={<TransferForm />} />
           <Route path="/account-transactions" element={<AccountTransactions />} />
           <Route path="/currency-converter" element={<CurrencyConverterForm/>} />
-          <Route path="/ai-support" element={<Chatbot/>}/>
       </Routes>
   </>
           )

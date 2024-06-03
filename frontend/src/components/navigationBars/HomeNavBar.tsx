@@ -38,9 +38,6 @@ export default function HomeNavBar() {
                     <Link to="/currency-converter" className="text-white text-lg block hover:text-gray-200">
                         Währungsrechner
                     </Link>
-                    <Link to="/ai-support" className="text-white text-lg block hover:text-gray-200">
-                        AI-Support
-                    </Link>
                 </div>
             </nav>
             <div className="absolute bottom-0 left-0 w-full p-4">
