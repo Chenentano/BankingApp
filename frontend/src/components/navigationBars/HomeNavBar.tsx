@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import BankingLogo from "../../assets/BankingLogo.png";
+import Chatbot from "../chatbot/chatbot";
 
 export default function HomeNavBar() {
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ export default function HomeNavBar() {
                     Logout
                 </button>
             </div>
+            <Chatbot/>
         </aside>
     );
 }

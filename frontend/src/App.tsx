@@ -9,9 +9,18 @@ import NotAuthorised from "./pages/authPages/Not-Authorised.tsx";
 import TransferForm from "./pages/userPages/TransferForm.tsx";
 import AccountTransactions from "./pages/userPages/AccountTransactions.tsx";
 import CurrencyConverterForm from "./pages/userPages/CurrencyConverterForm.tsx";
+import {useEffect} from "react";
+import Kommunicate from "@kommunicate/kommunicate-chatbot-plugin";
 
 
 function App() {
+
+    useEffect(() => {
+        Kommunicate.init("db447252d5a393cef5d729181537b4a7", {
+            automaticChatOpenOnNavigation: true,
+            popupWidget: true
+        });
+    }, []);
 
   return (
       <>

@@ -11,4 +11,9 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      '@kommunicate/kommunicate-chatbot-plugin': '@kommunicate/kommunicate-chatbot-plugin/dist/index.js',
+    },
+  },
 })

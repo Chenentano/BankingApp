@@ -64,7 +64,7 @@ function LandingNavBar(){
             <Link to="/login"
                   className="bg-indigo-600 text-white px-6 py-2 mr-32 ml-20 rounded-full hover:bg-indigo-700 transition-transform transform hover:scale-105"
             >
-                Einloggen
+                Anmelden
             </Link>
         </header>
             </>
