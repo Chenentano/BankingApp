@@ -34,6 +34,7 @@ public class AccountController {
         }
     }
 
+    //obsolete @FutureMe
     @PostMapping("/createBankAccountNumbers")
     public ResponseEntity<Void> updateBankAccountNumbers() {
         service.updateExistingAccounts();
